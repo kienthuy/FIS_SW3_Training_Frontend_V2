@@ -7,14 +7,15 @@ import MyButton from '@/components/basic/button';
 import MyPage from '@/components/business/page';
 import { searchLimit } from '@/api/limit';
 import { Limit } from '@/interface/limit';
+import { log } from 'console';
 
 const { Item: SearchItem } = MyPage.MySearch;
 
 const tableColums: MyPageTableOptions<Limit> = [
-  { title: 'First Name', dataIndex: 'firstName', key: 'firstName' },
-  { title: 'Last Name', dataIndex: 'lastName', key: 'lastName' },
-  { title: 'Age', dataIndex: 'age', key: 'age' },
-  { title: 'Address', dataIndex: 'address', key: 'address' },
+  { title: 'Mã', dataIndex: 'code', key: 'code' },
+  { title: 'Tên', dataIndex: 'name', key: 'name' },
+  { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
+  { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
  
   {
     title: 'Action',
@@ -34,11 +35,11 @@ const LimitPage: FC = () => {
       pageApi={searchLimit}
       searchRender={
         <>
-          <SearchItem label="STK" name="accountNumber" type="input" />
-          <SearchItem label="Họ tên" name="fullname" type="input" />
-          <SearchItem label="CCCD" name="cccd" type="input" />
-          <SearchItem label="Email" name="email" type="input" />
-          <SearchItem label="SĐT" name="phone" type="input" />
+          <SearchItem label="Mã" name="code" type="input" />
+          <SearchItem label="Tên" name="name" type="input" />
+          <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
+          <SearchItem label="Hạn mức" name="limit" type="input" />
+          <SearchItem label="Mô tả" name="description" type="input" />
           <SearchItem label="Trạng thái" name="status" type="input" />
         </>
       }

@@ -12,8 +12,7 @@ import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
 import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
 import { ReactComponent as ZhCnSvg } from '@/assets/header/zh_CN.svg';
-import AntdSvg from '@/assets/logo/antd.svg';
-import ReactSvg from '@/assets/logo/react.svg';
+import PortalIconSvg from '@/assets/header/portal-icon.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
@@ -76,87 +75,94 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
   return (
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
       {device !== 'MOBILE' && (
-        <div className="logo" style={{ width: collapsed ? 80 : 200 }}>
-          <img src={ReactSvg} alt="" style={{ marginRight: collapsed ? '2px' : '20px' }} />
-          <img src={AntdSvg} alt="" />
+        <div className="logo" style={{ width: collapsed ? 80 : 200 , backgroundColor: '#FFC20E'}}>
+          <img src={PortalIconSvg} alt=""  style={{width : '100%', height : '100%'}}/>
         </div>
       )}
       <div className="layout-page-header-main">
         <div onClick={toggle}>
           <span id="sidebar-trigger">{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
         </div>
-        <div className="actions">
-          <Tooltip
-            title={formatMessage({
-              id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
-            })}
-          >
-            <span>
-              {createElement(theme === 'dark' ? SunSvg : MoonSvg, {
-                onClick: onChangeTheme,
-              })}
-            </span>
-          </Tooltip>
-          <HeaderNoticeComponent />
-          <Dropdown
-            menu={{
-              onClick: info => selectLocale(info),
-              items: [
-                {
-                  key: 'zh_CN',
-                  icon: <ZhCnSvg />,
-                  disabled: locale === 'zh_CN',
-                  label: '简体中文',
-                },
-                {
-                  key: 'en_US',
-                  icon: <EnUsSvg />,
-                  disabled: locale === 'en_US',
-                  label: 'English',
-                },
-              ],
-            }}
-          >
-            <span>
-              <LanguageSvg id="language-change" />
-            </span>
-          </Dropdown>
-
-          {logged ? (
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: '1',
-                    icon: <UserOutlined />,
-                    label: (
-                      <span onClick={() => navigate('/dashboard')}>
-                        <LocaleFormatter id="header.avator.account" />
-                      </span>
-                    ),
-                  },
-                  {
-                    key: '2',
-                    icon: <LogoutOutlined />,
-                    label: (
-                      <span onClick={() => onActionClick('logout')}>
-                        <LocaleFormatter id="header.avator.logout" />
-                      </span>
-                    ),
-                  },
-                ],
-              }}
-            >
-              <span className="user-action">
-                <img src={Avator} className="user-avator" alt="avator" />
-              </span>
-            </Dropdown>
-          ) : (
-            <span style={{ cursor: 'pointer' }} onClick={toLogin}>
-              {formatMessage({ id: 'gloabal.tips.login' })}
-            </span>
-          )}
+        <div style={{ textAlign: 'center' }}>
+          <div className="marquee-container">
+            <div className="marquee-content">
+              <div className="marquee-item">Chào mừng bạn đến với hệ thống</div>
+              <div className="marquee-item">Dự án được phát triển bởi ThụyPTK2</div>
+            </div>
+          </div>
         </div>
+        
+        <div className="actions">
+      <Tooltip
+        title={formatMessage({
+          id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
+        })}
+      >
+        <div className="action-btn" onClick={onChangeTheme}>
+          {createElement(theme === 'dark' ? SunSvg : MoonSvg)}
+        </div>
+      </Tooltip>
+      <HeaderNoticeComponent />
+      <Dropdown
+        menu={{
+          onClick: info => selectLocale(info),
+          items: [
+            {
+              key: 'zh_CN',
+              icon: <ZhCnSvg />,
+              disabled: locale === 'zh_CN',
+              label: 'Tiếng việt',
+            },
+            {
+              key: 'en_US',
+              icon: <EnUsSvg />,
+              disabled: locale === 'en_US',
+              label: 'English',
+            },
+          ],
+        }}
+      >
+        <div className="action-btn">
+          <LanguageSvg id="language-change" />
+        </div>
+      </Dropdown>
+
+      {logged ? (
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: '1',
+                icon: <UserOutlined />,
+                label: (
+                  <div onClick={() => navigate('/dashboard')}>
+                    <LocaleFormatter id="header.avator.account" />
+                  </div>
+                ),
+              },
+              {
+                key: '2',
+                icon: <LogoutOutlined />,
+                label: (
+                  <div onClick={() => onActionClick('logout')}>
+                    <LocaleFormatter id="header.avator.logout" />
+                  </div>
+                ),
+              },
+            ],
+          }}
+        >
+          <div className="action-btn user-action">
+            <img src={Avator} className="user-avator" alt="avator" />
+          </div>
+        </Dropdown>
+      ) : (
+        <div className="action-btn" onClick={toLogin}>
+          {formatMessage({ id: 'gloabal.tips.login' })}
+        </div>
+      )}
+    </div>
+       
       </div>
     </Header>
   );

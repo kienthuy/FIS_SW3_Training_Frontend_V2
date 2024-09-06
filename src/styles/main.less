@@ -41,3 +41,71 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.marquee-container {
+  width: 100%; /* Hoặc chiều rộng mong muốn */
+  height: 32px; /* Chiều cao của container */
+  background-color: #FFC20E; /* Màu nền */
+  overflow: hidden; /* Ẩn nội dung tràn ra ngoài */
+  border-radius: 8px; /* Bo góc */
+  margin-left: auto; /* Căn giữa */
+  margin-right: auto; /* Căn giữa */
+  display: flex; /* Sử dụng Flexbox để căn giữa nội dung */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-item {
+  font-size: 16px;
+  display: inline-block;
+  padding-right: 150px; /* Khoảng cách giữa các dòng */
+}
+
+/* Keyframes cho hiệu ứng cuộn */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+/* ActionsStyles.css */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* Chiều rộng của nút */
+  height: 32px; /* Chiều cao của nút */
+  border-radius: 50%; /* Bo góc để thành hình tròn */
+  background-color: transparent; /* Nền trong suốt mặc định */
+  cursor: pointer; /* Con trỏ chuột kiểu nút bấm */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+.action-btn:hover {
+  background-color: #FFC20E; /* Màu nền khi hover */
+}
+
+.user-action {
+  display: flex;
+}
+
+.user-avator {
+  width: 32px; /* Chiều rộng của avatar */
+  height: 32px; /* Chiều cao của avatar */
+  border-radius: 50%; /* Bo góc avatar để thành hình tròn */
+}
