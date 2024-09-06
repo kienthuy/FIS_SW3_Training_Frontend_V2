@@ -2,8 +2,8 @@ import type { LoginParams, LoginResult, LogoutParams, LogoutResult } from '../in
 
 import { request } from './request';
 
-/** 登录接口 */
-export const apiLogin = (data: LoginParams) => request<LoginResult>('post', '/user/login', data);
+/** Dang nhap */
+export const apiLogin = (data: LoginParams) => request<LoginResult>('post', '/auth/login', data);
 
-/** 登出接口 */
+/** Dang xuat */
 export const apiLogout = (data: LogoutParams) => request<LogoutResult>('post', '/user/logout', data);

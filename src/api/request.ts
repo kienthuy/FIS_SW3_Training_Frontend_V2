@@ -19,6 +19,14 @@ axiosInstance.interceptors.request.use(
       }),
     );
 
+    // Get the token from the Redux store
+    const token =  localStorage.getItem('Authorization');
+
+    // If token exists, set the Authorization header
+    if (token && config.headers) {
+      config.headers['Authorization'] = `${token}`;
+    }
+
     return config;
   },
   error => {
@@ -93,7 +101,7 @@ export const request = <T = any>(
   config?: AxiosRequestConfig,
 ): MyResponse<T> => {
   // const prefix = '/api'
-  const prefix = '';
+  const prefix = 'http://localhost:8021/api/portal';
 
   url = prefix + url;
 

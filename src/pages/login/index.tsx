@@ -13,8 +13,8 @@ import { formatSearch } from '@/utils/formatSearch';
 import { loginAsync } from '../../stores/user.action';
 
 const initialValues: LoginParams = {
-  username: 'guest',
-  password: 'guest',
+  code: 'thaipro',
+  password: '123123',
   // remember: true
 };
 
@@ -28,6 +28,7 @@ const LoginForm: FC = () => {
     const res = dispatch(await loginAsync(form));
 
     if (!!res) {
+      console.log('Login data', res)
       const search = formatSearch(location.search);
       const from = search.from || { pathname: '/' };
 
@@ -40,7 +41,7 @@ const LoginForm: FC = () => {
       <Form<LoginParams> onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
         <h2>REACT ANTD ADMIN</h2>
         <Form.Item
-          name="username"
+          name="code"
           rules={[
             {
               required: true,

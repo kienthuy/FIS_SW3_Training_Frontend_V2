@@ -24,6 +24,7 @@ const RadioCardsPage = lazy(() => import(/* webpackChunkName: "radio-cards'"*/ '
 const BusinessBasicPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/business/basic'));
 const BusinessWithSearchPage = lazy(() => import(/* webpackChunkName: "with-search" */ '@/pages/business/with-search'));
 const OpenAccountBankingPage = lazy(() => import(/* webpackChunkName: "open-account-banking" */ '@/pages/business/open-account-banking'));
+const LimitPage = lazy(() => import(/* webpackChunkName: "limit" */ '@/pages/category/limit'));
 const BusinessWithAsidePage = lazy(() => import(/* webpackChunkName: "with-aside" */ '@/pages/business/with-aside'));
 const BusinessWithRadioCardsPage = lazy(
   () => import(/* webpackChunkName: "with-aside" */ '@/pages/business/with-radio-cards'),
@@ -106,6 +107,10 @@ const routeList: RouteObject[] = [
       {
         path: 'business/with-tabs',
         element: <WrapperRouteComponent element={<BusinessWithTabsPage />} titleId="title.account" />,
+      },
+      {
+        path: 'category/limit',
+        element: <WrapperRouteComponent element={<LimitPage />} titleId="title.account" />,
       },
       {
         path: '*',

@@ -2,17 +2,17 @@
 export type Role = 'guest' | 'admin';
 
 export interface LoginParams {
-  /** 用户名 */
-  username: string;
-  /** 用户密码 */
+  /** Tai khoan */
+  code: string;
+  /** Mat khau */
   password: string;
 }
 
 export interface LoginResult {
   /** auth token */
-  token: string;
-  username: string;
-  role: Role;
+  data: string;
+  errorCode: string;
+  errorDesc: string;
 }
 
 export interface LogoutParams {

@@ -64,14 +64,61 @@ const LayoutPage: FC = () => {
     return MenuListAll;
   };
 
-  const fetchMenuList = useCallback(async () => {
-    const { status, result } = await getMenuList();
+  type MenuItem = {
+    code: string;
+    label: {
+      zh_CN: string;
+      en_US: string;
+    };
+    icon?: string;
+    path: string;
+    children?: MenuItem[];
+  };
 
-    if (status) {
-      setMenuList(result);
+  const transformMenuList = (data: any[]): MenuItem[] => {
+    const menuMap: Record<string, MenuItem> = {};
+    const menuList: MenuItem[] = [];
+  
+    // First, map the items by their code
+    data.forEach(item => {
+      const menuItem: MenuItem = {
+        code: item.code.toLowerCase(),
+        label: {
+          zh_CN: item.name,
+          en_US: item.nameEn,
+        },
+        icon: item.icon || 'default-icon', // Use a default icon if none is provided
+        path: item.path || '', // Default to empty string if path is null
+      };
+      menuMap[item.code] = menuItem;
+    });
+  
+    // Then, build the tree structure
+    data.forEach(item => {
+      if (item.parentCode) {
+        const parent = menuMap[item.parentCode];
+        if (parent) {
+          parent.children = parent.children || [];
+          parent.children.push(menuMap[item.code]);
+        }
+      } else {
+        menuList.push(menuMap[item.code]);
+      }
+    });
+  
+    return menuList;
+  };
+
+  const fetchMenuList = useCallback(async () => {
+    const { data } = await getMenuList();
+
+    if (data) {
+      console.log(data);
+      const transformedMenuList = transformMenuList(data);
+      setMenuList(transformedMenuList);
       dispatch(
         setUserItem({
-          menuList: initMenuListAll(result),
+          menuList: initMenuListAll(transformedMenuList),
         }),
       );
     }
