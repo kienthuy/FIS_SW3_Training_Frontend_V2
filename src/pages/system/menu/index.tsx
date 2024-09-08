@@ -4,17 +4,17 @@ import { Space, Modal, Form, Input, Button, message } from 'antd';
 import { DownloadOutlined, ExportOutlined, PlusOutlined } from '@ant-design/icons';
 import MyButton from '@/components/basic/button';
 import MyPage, { MyPageTableOptions } from '@/components/business/page';
-import { searchLimit, createLimit, updateLimit } from '@/api/limit';
-import { Limit } from '@/interface/limit';
+import { createMenu, searchMenu, updateMenu } from '@/api/menu';
+import { Menu } from '@/interface/menu';
 
 const { Item: SearchItem } = MyPage.MySearch;
 
-const LimitPage: FC = () => {
+const MenuPage: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [currentRecord, setCurrentRecord] = useState<Limit | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<Menu | null>(null);
 
-  const handleEdit = (record: Limit) => {
+  const handleEdit = (record: Menu) => {
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
@@ -33,7 +33,7 @@ const LimitPage: FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (currentRecord) {
-        updateLimit(values)
+        updateMenu(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
@@ -50,7 +50,7 @@ const LimitPage: FC = () => {
             message.error('Có lỗi xảy ra khi cập nhật hạn mức');
           });
       } else {
-        createLimit(values)
+        createMenu(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
@@ -71,12 +71,13 @@ const LimitPage: FC = () => {
     });
   };
   
-  const tableColumns: MyPageTableOptions<Limit> = [
-    { title: 'Mã', dataIndex: 'code', key: 'code' },
+  const tableColumns: MyPageTableOptions<Menu> = [
+    { title: 'Mã menu', dataIndex: 'code', key: 'code' },
     { title: 'Tên', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
-    { title: 'Giá trị', dataIndex: 'limitValue', key: 'limitValue' },
-    { title: 'Mô tả', dataIndex: 'description', key: 'description' },
+    { title: 'Đường dẫn', dataIndex: 'path', key: 'path' },
+    { title: 'Mã menu cha', dataIndex: 'parentCode', key: 'parentCode' },
+    { title: 'Độ ưu tiên', dataIndex: 'priority', key: 'priority' },
     { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
     {
       title: 'Hành động',
@@ -92,14 +93,13 @@ const LimitPage: FC = () => {
   return (
     <>
       <MyPage
-        pageApi={searchLimit}
+        pageApi={searchMenu}
         searchRender={
           <>
             <SearchItem label="Mã" name="code" type="input" />
             <SearchItem label="Tên" name="name" type="input" />
             <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
-            <SearchItem label="Giá trị" name="limitValue" type="input" />
-            <SearchItem label="Mô tả" name="description" type="input" />
+            <SearchItem label="Menu cha" name="parentCode" type="input" />
             <SearchItem label="Trạng thái" name="status" type="input" />
           </>
         }
@@ -165,4 +165,4 @@ const LimitPage: FC = () => {
   );
 };
 
-export default LimitPage;
+export default MenuPage;

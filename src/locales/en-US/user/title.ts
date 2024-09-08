@@ -7,5 +7,6 @@ export const enUS_title = {
   'title.permission.button': 'Button Permission',
   'title.permission.config': 'Permission Config',
   'title.account': 'Account',
+  'title.limit': 'Hạn mức giao dịch',
   'title.notFount': '404',
 };

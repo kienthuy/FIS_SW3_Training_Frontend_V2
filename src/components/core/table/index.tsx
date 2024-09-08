@@ -43,6 +43,8 @@ const styles = css`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding: 20px;
+  
 
   .ant-table-wrapper,
   .ant-spin-nested-loading,
@@ -56,6 +58,8 @@ const styles = css`
     flex-direction: column;
 
     .ant-table {
+    border: 1px solid #d9d9d9;
+    border-bottom: 0;
       flex: 1;
       overflow: hidden;
       border-bottom: 1px solid #eee;

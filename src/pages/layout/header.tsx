@@ -75,8 +75,8 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
   return (
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
       {device !== 'MOBILE' && (
-        <div className="logo" style={{ width: collapsed ? 80 : 200 , backgroundColor: '#FFC20E'}}>
-          <img src={PortalIconSvg} alt=""  style={{width : '100%', height : '100%'}}/>
+        <div className="logo" style={{ width: collapsed ? 80 : 200, backgroundColor: '#FFC20E' }}>
+          <img src={PortalIconSvg} alt="" style={{ width: '100%', height: '100%' }} />
         </div>
       )}
       <div className="layout-page-header-main">
@@ -91,78 +91,81 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             </div>
           </div>
         </div>
-        
-        <div className="actions">
-      <Tooltip
-        title={formatMessage({
-          id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
-        })}
-      >
-        <div className="action-btn" onClick={onChangeTheme}>
-          {createElement(theme === 'dark' ? SunSvg : MoonSvg)}
-        </div>
-      </Tooltip>
-      <HeaderNoticeComponent />
-      <Dropdown
-        menu={{
-          onClick: info => selectLocale(info),
-          items: [
-            {
-              key: 'zh_CN',
-              icon: <ZhCnSvg />,
-              disabled: locale === 'zh_CN',
-              label: 'Tiếng việt',
-            },
-            {
-              key: 'en_US',
-              icon: <EnUsSvg />,
-              disabled: locale === 'en_US',
-              label: 'English',
-            },
-          ],
-        }}
-      >
-        <div className="action-btn">
-          <LanguageSvg id="language-change" />
-        </div>
-      </Dropdown>
 
-      {logged ? (
-        <Dropdown
-          menu={{
-            items: [
-              {
-                key: '1',
-                icon: <UserOutlined />,
-                label: (
-                  <div onClick={() => navigate('/dashboard')}>
-                    <LocaleFormatter id="header.avator.account" />
-                  </div>
-                ),
-              },
-              {
-                key: '2',
-                icon: <LogoutOutlined />,
-                label: (
-                  <div onClick={() => onActionClick('logout')}>
-                    <LocaleFormatter id="header.avator.logout" />
-                  </div>
-                ),
-              },
-            ],
-          }}
-        >
-          <div className="action-btn user-action">
-            <img src={Avator} className="user-avator" alt="avator" />
-          </div>
-        </Dropdown>
-      ) : (
-        <div className="action-btn" onClick={toLogin}>
-          {formatMessage({ id: 'gloabal.tips.login' })}
+        <div className="actions">
+          <Tooltip
+            title={formatMessage({
+              id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
+            })}
+          >
+            <div className="action-btn" onClick={onChangeTheme}>
+              {createElement(theme === 'dark' ? SunSvg : MoonSvg)}
+            </div>
+          </Tooltip>
+          {/* <div className="action-btn">
+            <HeaderNoticeComponent />
+          </div> */}
+         
+          <Dropdown
+            menu={{
+              onClick: info => selectLocale(info),
+              items: [
+                {
+                  key: 'zh_CN',
+                  icon: <ZhCnSvg />,
+                  disabled: locale === 'zh_CN',
+                  label: 'Tiếng việt',
+                },
+                {
+                  key: 'en_US',
+                  icon: <EnUsSvg />,
+                  disabled: locale === 'en_US',
+                  label: 'English',
+                },
+              ],
+            }}
+          >
+            <div className="action-btn">
+              <LanguageSvg id="language-change" />
+            </div>
+          </Dropdown>
+
+          {logged ? (
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: '1',
+                    icon: <UserOutlined />,
+                    label: (
+                      <div onClick={() => navigate('/dashboard')}>
+                        <LocaleFormatter id="header.avator.account" />
+                      </div>
+                    ),
+                  },
+                  {
+                    key: '2',
+                    icon: <LogoutOutlined />,
+                    label: (
+                      <div onClick={() => onActionClick('logout')}>
+                        <LocaleFormatter id="header.avator.logout" />
+                      </div>
+                    ),
+                  },
+                ],
+              }}
+            >
+              <div className="action-btn user-action">
+                <img src={Avator} className="user-avator" alt="avator" />
+              </div>
+            </Dropdown>
+          ) : (
+            <div className="action-btn" onClick={toLogin}>
+              {formatMessage({ id: 'gloabal.tips.login' })}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-       
+
       </div>
     </Header>
   );

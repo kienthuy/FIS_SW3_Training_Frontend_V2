@@ -37,9 +37,11 @@ const LoginForm: FC = () => {
   };
 
   return (
+    
     <div className="login-page">
+      <img className="logoLogin" src="https://cdn.fpt-is.com/vi/FPT-IS-set-logo-09-1715516289.svg" id="logo" style={{width: '12em', height: '12em'}}></img>
       <Form<LoginParams> onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
-        <h2>REACT ANTD ADMIN</h2>
+        <h2>Chào mừng bạn đến với hệ thống SW3.C360</h2>
         <Form.Item
           name="code"
           rules={[
@@ -81,7 +83,7 @@ const LoginForm: FC = () => {
           </Checkbox>
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" type="primary" className="login-page-form_button">
+          <Button htmlType="submit" type="primary" className="login-page-form_button theme-color ">
             <LocaleFormatter id="gloabal.tips.login" />
           </Button>
         </Form.Item>

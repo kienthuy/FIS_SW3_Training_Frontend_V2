@@ -77,35 +77,39 @@ a {
 }
 
 
-/* ActionsStyles.css */
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Khoảng cách giữa các nút */
-}
-
+/* Style for each action button */
 .action-btn {
+  border-radius: 15px;
+  background-color:#cfe7e7;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px; /* Chiều rộng của nút */
-  height: 32px; /* Chiều cao của nút */
-  border-radius: 50%; /* Bo góc để thành hình tròn */
-  background-color: transparent; /* Nền trong suốt mặc định */
-  cursor: pointer; /* Con trỏ chuột kiểu nút bấm */
-  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+  width: 42px; /* Width of the button */
+  height: 42px; /* Height of the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  border: none; /* Remove default border */
 }
 
+/* Background color on hover */
 .action-btn:hover {
-  background-color: #FFC20E; /* Màu nền khi hover */
+  background-color: #FFC20E; /* Background color on hover */
 }
 
+/* Container for user avatar */
 .user-action {
   display: flex;
+  align-items: center; /* Center avatar vertically */
 }
 
+/* Style for user avatar image */
 .user-avator {
-  width: 32px; /* Chiều rộng của avatar */
-  height: 32px; /* Chiều cao của avatar */
-  border-radius: 50%; /* Bo góc avatar để thành hình tròn */
+  width: 32px; /* Width of the avatar */
+  height: 32px; /* Height of the avatar */
+  border-radius: 50%; /* Circle shape */
+  object-fit: cover; /* Ensures image covers the container without distortion */
+}
+
+.theme-color {
+  background-color: #FFC20E;
 }
