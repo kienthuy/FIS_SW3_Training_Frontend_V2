@@ -10,6 +10,8 @@ import LayoutPage from '@/pages/layout';
 import LoginPage from '@/pages/login';
 
 import WrapperRouteComponent from './config';
+import CurrencyPage from '@/pages/category/currency';
+import UserPage from '@/pages/system/user-management/user-management';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const Documentation = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/doucumentation'));
@@ -114,8 +116,16 @@ const routeList: RouteObject[] = [
         element: <WrapperRouteComponent element={<LimitPage />} titleId="title.limit" />,
       },
       {
+        path: 'category/currency',
+        element: <WrapperRouteComponent element={<CurrencyPage />} titleId="title.currency" />,
+      },
+      {
         path: 'system/menu',
         element: <WrapperRouteComponent element={<MenuPage />} titleId="title.limit" />,
+      },
+      {
+        path: 'system/user',
+        element: <WrapperRouteComponent element={<UserPage />} titleId="title.user" />,
       },
       
       {
