@@ -4,17 +4,20 @@ import { Space, Modal, Form, Input, Button, message } from 'antd';
 import { DownloadOutlined, ExportOutlined, PlusOutlined } from '@ant-design/icons';
 import MyButton from '@/components/basic/button';
 import MyPage, { MyPageTableOptions } from '@/components/business/page';
-import { createMenu, searchMenu, updateMenu } from '@/api/menu';
-import { Menu } from '@/interface/menu';
+import { createRole, searchRole, updateRole } from '@/api/role';
+import { Role } from '@/interface/role';
+
+
+
 
 const { Item: SearchItem } = MyPage.MySearch;
 
-const MenuPage: FC = () => {
+const RolePage: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [currentRecord, setCurrentRecord] = useState<Menu | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<Role | null>(null);
 
-  const handleEdit = (record: Menu) => {
+  const handleEdit = (record: Role) => {
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
@@ -33,7 +36,7 @@ const MenuPage: FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (currentRecord) {
-        updateMenu(values)
+        updateRole(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
@@ -42,42 +45,39 @@ const MenuPage: FC = () => {
               message.error('Vai trò đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật Vai trò thất bại: ${errorDesc}` : 'Cập nhật Vai trò thất bại'
+                errorDesc ? `Cập nhật vai trò thất bại: ${errorDesc}` : 'Cập nhật vai trò thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật Vai trò');
+            message.error('Có lỗi xảy ra khi cập nhật vai trò');
           });
       } else {
-        createMenu(values)
+        createRole(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo Vai trò thành công');
+              message.success('Tạo vai trò thành công');
             } else if (errorCode === '2') {
               message.error('Vai trò đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo Vai trò thất bại: ${errorDesc}` : 'Tạo Vai trò thất bại'
+                errorDesc ? `Tạo vai trò thất bại: ${errorDesc}` : 'Tạo vai trò thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo Vai trò');
+            message.error('Có lỗi xảy ra khi tạo vai trò');
           });
       }
       handleCancel();
     });
   };
   
-  const tableColumns: MyPageTableOptions<Menu> = [
-    { title: 'Mã menu', dataIndex: 'code', key: 'code' },
-    { title: 'Tên', dataIndex: 'name', key: 'name' },
+  const tableColumns: MyPageTableOptions<Role> = [
+    { title: 'Mã vai trò', dataIndex: 'code', key: 'code' },
+    { title: 'Vai trò', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
-    { title: 'Đường dẫn', dataIndex: 'path', key: 'path' },
-    { title: 'Mã menu cha', dataIndex: 'parentCode', key: 'parentCode' },
-    { title: 'Độ ưu tiên', dataIndex: 'priority', key: 'priority' },
     { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
     {
       title: 'Hành động',
@@ -93,13 +93,12 @@ const MenuPage: FC = () => {
   return (
     <>
       <MyPage
-        pageApi={searchMenu}
+        pageApi={searchRole}
         searchRender={
           <>
             <SearchItem label="Mã" name="code" type="input" />
             <SearchItem label="Tên" name="name" type="input" />
             <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
-            <SearchItem label="Menu cha" name="parentCode" type="input" />
             <SearchItem label="Trạng thái" name="status" type="input" />
           </>
         }
@@ -147,14 +146,6 @@ const MenuPage: FC = () => {
             <Form.Item name="nameEn" label="Tên (Tiếng anh)" style={{ flex: 1 }}>
               <Input />
             </Form.Item>
-            <Form.Item name="limitValue" label="Giá trị" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Form.Item name="description" label="Mô tả" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
             <Form.Item name="status" label="Trạng thái" style={{ flex: 1 }} >
               <Input />
             </Form.Item>
@@ -165,4 +156,4 @@ const MenuPage: FC = () => {
   );
 };
 
-export default MenuPage;
+export default RolePage;

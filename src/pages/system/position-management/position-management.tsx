@@ -4,17 +4,19 @@ import { Space, Modal, Form, Input, Button, message } from 'antd';
 import { DownloadOutlined, ExportOutlined, PlusOutlined } from '@ant-design/icons';
 import MyButton from '@/components/basic/button';
 import MyPage, { MyPageTableOptions } from '@/components/business/page';
-import { createMenu, searchMenu, updateMenu } from '@/api/menu';
-import { Menu } from '@/interface/menu';
+
+import { Position } from '@/interface/position';
+import { createPosition, searchPosition, updatePosition } from '@/api/position';
+
 
 const { Item: SearchItem } = MyPage.MySearch;
 
-const MenuPage: FC = () => {
+const PositionPage: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [currentRecord, setCurrentRecord] = useState<Menu | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<Position | null>(null);
 
-  const handleEdit = (record: Menu) => {
+  const handleEdit = (record: Position) => {
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
@@ -33,52 +35,49 @@ const MenuPage: FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (currentRecord) {
-        updateMenu(values)
+        updatePosition(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Cập nhật vai trò thành công');
+              message.success('Cập nhật chức vụ thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Chức vụ này đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật Vai trò thất bại: ${errorDesc}` : 'Cập nhật Vai trò thất bại'
+                errorDesc ? `Cập nhật chức vụ thất bại: ${errorDesc}` : 'Cập nhật chức vụ thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật Vai trò');
+            message.error('Có lỗi xảy ra khi cập nhật chức vụ');
           });
       } else {
-        createMenu(values)
+        createPosition(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo Vai trò thành công');
+              message.success('Tạo chức vụ thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Chức vụ đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo Vai trò thất bại: ${errorDesc}` : 'Tạo Vai trò thất bại'
+                errorDesc ? `Tạo chức vụ thất bại: ${errorDesc}` : 'Tạo chức vụ thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo Vai trò');
+            message.error('Có lỗi xảy ra khi tạo chức vụ');
           });
       }
       handleCancel();
     });
   };
   
-  const tableColumns: MyPageTableOptions<Menu> = [
-    { title: 'Mã menu', dataIndex: 'code', key: 'code' },
-    { title: 'Tên', dataIndex: 'name', key: 'name' },
-    { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
-    { title: 'Đường dẫn', dataIndex: 'path', key: 'path' },
-    { title: 'Mã menu cha', dataIndex: 'parentCode', key: 'parentCode' },
-    { title: 'Độ ưu tiên', dataIndex: 'priority', key: 'priority' },
-    { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
+  const tableColumns: MyPageTableOptions<Position> = [
+    { title: 'Mã chức vụ', dataIndex: 'code', key: 'code' },
+    { title: 'Tên chức vụ', dataIndex: 'name', key: 'name' },
+    { title: 'Chức vụ', dataIndex: 'position', key: 'position' },
+    { title: 'Trạng thái', dataIndex: 'department', key: 'department' },
     {
       title: 'Hành động',
       key: 'action',
@@ -93,14 +92,13 @@ const MenuPage: FC = () => {
   return (
     <>
       <MyPage
-        pageApi={searchMenu}
+        pageApi={searchPosition}
         searchRender={
           <>
             <SearchItem label="Mã" name="code" type="input" />
             <SearchItem label="Tên" name="name" type="input" />
-            <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
-            <SearchItem label="Menu cha" name="parentCode" type="input" />
-            <SearchItem label="Trạng thái" name="status" type="input" />
+            <SearchItem label="Chức vụ" name="position" type="input" />
+            <SearchItem label="Phòng ban" name="department" type="input" />
           </>
         }
         tableOptions={tableColumns}
@@ -144,18 +142,10 @@ const MenuPage: FC = () => {
             </Form.Item>
           </div>
           <div style={{ display: 'flex', gap: '16px' }}>
-            <Form.Item name="nameEn" label="Tên (Tiếng anh)" style={{ flex: 1 }}>
+            <Form.Item name="position" label="Chức vụ" style={{ flex: 1 }}>
               <Input />
             </Form.Item>
-            <Form.Item name="limitValue" label="Giá trị" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Form.Item name="description" label="Mô tả" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="status" label="Trạng thái" style={{ flex: 1 }} >
+            <Form.Item name="department" label="Phòng ban" style={{ flex: 1 }}>
               <Input />
             </Form.Item>
           </div>
@@ -165,4 +155,4 @@ const MenuPage: FC = () => {
   );
 };
 
-export default MenuPage;
+export default PositionPage;

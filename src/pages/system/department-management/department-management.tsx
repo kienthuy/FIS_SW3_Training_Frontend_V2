@@ -4,17 +4,19 @@ import { Space, Modal, Form, Input, Button, message } from 'antd';
 import { DownloadOutlined, ExportOutlined, PlusOutlined } from '@ant-design/icons';
 import MyButton from '@/components/basic/button';
 import MyPage, { MyPageTableOptions } from '@/components/business/page';
-import { createMenu, searchMenu, updateMenu } from '@/api/menu';
-import { Menu } from '@/interface/menu';
+
+import { Department } from '@/interface/department';
+import { createDepartment, searchDepartment, updateDepartment } from '@/api/department';
+
 
 const { Item: SearchItem } = MyPage.MySearch;
 
-const MenuPage: FC = () => {
+const DepartmentPage: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [currentRecord, setCurrentRecord] = useState<Menu | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<Department | null>(null);
 
-  const handleEdit = (record: Menu) => {
+  const handleEdit = (record: Department) => {
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
@@ -33,51 +35,48 @@ const MenuPage: FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (currentRecord) {
-        updateMenu(values)
+        updateDepartment(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Cập nhật vai trò thành công');
+              message.success('Cập nhật phòng ban thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Phòng ban đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật Vai trò thất bại: ${errorDesc}` : 'Cập nhật Vai trò thất bại'
+                errorDesc ? `Cập nhật phòng ban thất bại: ${errorDesc}` : 'Cập nhật phòng ban thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật Vai trò');
+            message.error('Có lỗi xảy ra khi cập nhật phòng ban');
           });
       } else {
-        createMenu(values)
+        createDepartment(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo Vai trò thành công');
+              message.success('Tạo phòng ban thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Phong ban đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo Vai trò thất bại: ${errorDesc}` : 'Tạo Vai trò thất bại'
+                errorDesc ? `Tạo phòng ban thất bại: ${errorDesc}` : 'Tạo phòng ban thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo Vai trò');
+            message.error('Có lỗi xảy ra khi tạo phòng ban');
           });
       }
       handleCancel();
     });
   };
   
-  const tableColumns: MyPageTableOptions<Menu> = [
-    { title: 'Mã menu', dataIndex: 'code', key: 'code' },
-    { title: 'Tên', dataIndex: 'name', key: 'name' },
+  const tableColumns: MyPageTableOptions<Department> = [
+    { title: 'Mã phòng ban', dataIndex: 'code', key: 'code' },
+    { title: 'Tên phòng ban', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
-    { title: 'Đường dẫn', dataIndex: 'path', key: 'path' },
-    { title: 'Mã menu cha', dataIndex: 'parentCode', key: 'parentCode' },
-    { title: 'Độ ưu tiên', dataIndex: 'priority', key: 'priority' },
     { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
     {
       title: 'Hành động',
@@ -93,13 +92,12 @@ const MenuPage: FC = () => {
   return (
     <>
       <MyPage
-        pageApi={searchMenu}
+        pageApi={searchDepartment}
         searchRender={
           <>
             <SearchItem label="Mã" name="code" type="input" />
             <SearchItem label="Tên" name="name" type="input" />
             <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
-            <SearchItem label="Menu cha" name="parentCode" type="input" />
             <SearchItem label="Trạng thái" name="status" type="input" />
           </>
         }
@@ -147,14 +145,6 @@ const MenuPage: FC = () => {
             <Form.Item name="nameEn" label="Tên (Tiếng anh)" style={{ flex: 1 }}>
               <Input />
             </Form.Item>
-            <Form.Item name="limitValue" label="Giá trị" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Form.Item name="description" label="Mô tả" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
             <Form.Item name="status" label="Trạng thái" style={{ flex: 1 }} >
               <Input />
             </Form.Item>
@@ -165,4 +155,4 @@ const MenuPage: FC = () => {
   );
 };
 
-export default MenuPage;
+export default DepartmentPage;

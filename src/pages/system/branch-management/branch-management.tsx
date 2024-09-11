@@ -4,17 +4,19 @@ import { Space, Modal, Form, Input, Button, message } from 'antd';
 import { DownloadOutlined, ExportOutlined, PlusOutlined } from '@ant-design/icons';
 import MyButton from '@/components/basic/button';
 import MyPage, { MyPageTableOptions } from '@/components/business/page';
-import { createMenu, searchMenu, updateMenu } from '@/api/menu';
-import { Menu } from '@/interface/menu';
+
+import { createBranch, searchBranch, updateBranch } from '@/api/branch';
+import { Branch } from '@/interface/branch';
+
 
 const { Item: SearchItem } = MyPage.MySearch;
 
-const MenuPage: FC = () => {
+const BranchPage: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [currentRecord, setCurrentRecord] = useState<Menu | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<Branch | null>(null);
 
-  const handleEdit = (record: Menu) => {
+  const handleEdit = (record: Branch) => {
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
@@ -33,52 +35,56 @@ const MenuPage: FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (currentRecord) {
-        updateMenu(values)
+        updateBranch(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Cập nhật vai trò thành công');
+              message.success('Cập nhật phòng ban thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Phòng ban đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật Vai trò thất bại: ${errorDesc}` : 'Cập nhật Vai trò thất bại'
+                errorDesc ? `Cập nhật phòng ban thất bại: ${errorDesc}` : 'Cập nhật phòng ban thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật Vai trò');
+            message.error('Có lỗi xảy ra khi cập nhật phòng ban');
           });
       } else {
-        createMenu(values)
+        createBranch(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo Vai trò thành công');
+              message.success('Tạo phòng ban thành công');
             } else if (errorCode === '2') {
-              message.error('Vai trò đã tồn tại trong hệ thống');
+              message.error('Phong ban đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo Vai trò thất bại: ${errorDesc}` : 'Tạo Vai trò thất bại'
+                errorDesc ? `Tạo phòng ban thất bại: ${errorDesc}` : 'Tạo phòng ban thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo Vai trò');
+            message.error('Có lỗi xảy ra khi tạo phòng ban');
           });
       }
       handleCancel();
     });
   };
   
-  const tableColumns: MyPageTableOptions<Menu> = [
-    { title: 'Mã menu', dataIndex: 'code', key: 'code' },
-    { title: 'Tên', dataIndex: 'name', key: 'name' },
+  const tableColumns: MyPageTableOptions<Branch> = [
+    { title: 'Mã phòng ban', dataIndex: 'code', key: 'code' },
+    { title: 'Tên phòng ban', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
-    { title: 'Đường dẫn', dataIndex: 'path', key: 'path' },
-    { title: 'Mã menu cha', dataIndex: 'parentCode', key: 'parentCode' },
-    { title: 'Độ ưu tiên', dataIndex: 'priority', key: 'priority' },
-    { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
+    { title: 'Mã số thuế', dataIndex: 'fax', key: 'fax' },
+    { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },
+    { title: 'Địa chỉ', dataIndex: 'address', key: 'address' },
+    { title: 'Vĩ độ', dataIndex: 'lagitude', key: 'lagitude' },
+    { title: 'Kinh độ', dataIndex: 'longitude', key: 'longitude' },
+    { title: 'Tỉnh/thành', dataIndex: 'provinceCode', key: 'provinceCode' },
+    { title: 'Quận/huyện', dataIndex: 'districtCode', key: 'districtCode' },
+    { title: 'Email', dataIndex: 'email', key: 'email' },
     {
       title: 'Hành động',
       key: 'action',
@@ -93,14 +99,20 @@ const MenuPage: FC = () => {
   return (
     <>
       <MyPage
-        pageApi={searchMenu}
+        pageApi={searchBranch}
         searchRender={
           <>
             <SearchItem label="Mã" name="code" type="input" />
             <SearchItem label="Tên" name="name" type="input" />
             <SearchItem label="Tên (Tiếng anh)" name="nameEn" type="input" />
-            <SearchItem label="Menu cha" name="parentCode" type="input" />
-            <SearchItem label="Trạng thái" name="status" type="input" />
+            <SearchItem label="Mã số thuế" name="fax" type="input" />
+            <SearchItem label="Số điện thoại" name="phone" type="input" />
+            <SearchItem label="Địa chỉ" name="address" type="input" />
+            <SearchItem label="Vĩ độ" name="latitude" type="input" />
+            <SearchItem label="Kinh độ" name="longitude" type="input" />
+            <SearchItem label="Mã tỉnh/thành" name="provinceCode" type="input" />
+            <SearchItem label="Mã quận/huyện" name="districtCode" type="input" />
+            <SearchItem label="email" name="email" type="input" />
           </>
         }
         tableOptions={tableColumns}
@@ -147,14 +159,6 @@ const MenuPage: FC = () => {
             <Form.Item name="nameEn" label="Tên (Tiếng anh)" style={{ flex: 1 }}>
               <Input />
             </Form.Item>
-            <Form.Item name="limitValue" label="Giá trị" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Form.Item name="description" label="Mô tả" style={{ flex: 1 }}>
-              <Input />
-            </Form.Item>
             <Form.Item name="status" label="Trạng thái" style={{ flex: 1 }} >
               <Input />
             </Form.Item>
@@ -165,4 +169,4 @@ const MenuPage: FC = () => {
   );
 };
 
-export default MenuPage;
+export default BranchPage;

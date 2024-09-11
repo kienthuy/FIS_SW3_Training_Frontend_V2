@@ -12,6 +12,11 @@ import LoginPage from '@/pages/login';
 import WrapperRouteComponent from './config';
 import CurrencyPage from '@/pages/category/currency';
 import UserPage from '@/pages/system/user-management/user-management';
+import DepartmentPage from '@/pages/system/department-management/department-management';
+import PositionPage from '@/pages/system/position-management/position-management';
+import BranchPage from '@/pages/system/branch-management/branch-management';
+import RolePage from '@/pages/system/role-management/role-management';
+import ProductPage from '@/pages/system/product/product';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const Documentation = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/doucumentation'));
@@ -126,6 +131,26 @@ const routeList: RouteObject[] = [
       {
         path: 'system/user',
         element: <WrapperRouteComponent element={<UserPage />} titleId="title.user" />,
+      },
+      {
+        path: 'system/department',
+        element: <WrapperRouteComponent element={<DepartmentPage />} titleId="title.department" />,
+      },
+      {
+        path: 'system/position',
+        element: <WrapperRouteComponent element={<PositionPage />} titleId="title.position" />,
+      },
+      {
+        path: 'system/branch',
+        element: <WrapperRouteComponent element={<BranchPage />} titleId="title.branch" />,
+      },
+      {
+        path: 'system/role',
+        element: <WrapperRouteComponent element={<RolePage />} titleId="title.role" />,
+      },
+      {
+        path: 'category/product',
+        element: <WrapperRouteComponent element={<ProductPage />} titleId="title.product" />,
       },
       
       {
