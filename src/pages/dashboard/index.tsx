@@ -15,6 +15,7 @@ import mailIncome from '@/assets/icon/mailIncome.png';
 import mailOutcome from '@/assets/icon/mailOutcome.png';
 import mailFollow from '@/assets/icon/mailFollow.png';
 import mailRelate from '@/assets/icon/mailRelate.png';
+import bgSearch from '@/assets/bg/bg-search.png';
 
 import { Radio, Select, DatePicker, Table } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, ReloadOutlined } from '@ant-design/icons';
@@ -73,8 +74,31 @@ const DashBoardPage: FC = () => {
 
   return (
     <div>
-      <Card title="Tìm kiếm khách hàng">
-        <Row gutter={[16, 16]} align="middle">
+      <Card
+        className='container'
+        style={{
+          backgroundImage: `url(${bgSearch})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          border: '1px solid #ccc', // Light gray border
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow
+          margin: '16px',
+        }}
+      >
+        <h1 style={{ textAlign: 'center' }}>Tìm kiếm khách hàng</h1>
+
+        <Row
+          gutter={[16, 16]}
+          align="middle"
+          style={{
+            backgroundColor: '#fff',  // Background color for the Row
+            padding: '20px',          // Padding inside the Row
+            borderRadius: '10px',     // Rounded corners
+            border: '1px solid #ccc', // Light gray border
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow
+          }}
+        >
           <Col span={7}>
             <Input placeholder="Mã khách hàng" />
           </Col>
@@ -85,7 +109,7 @@ const DashBoardPage: FC = () => {
             <Input placeholder="Số tài khoản" />
           </Col>
           <Col span={2}>
-            <Button type="default" className='theme-color' icon={<SearchOutlined />}>
+            <Button type="default" className="theme-color" icon={<SearchOutlined />}>
               Tìm kiếm
             </Button>
           </Col>
@@ -100,7 +124,7 @@ const DashBoardPage: FC = () => {
       {/* <Overview loading={loading} /> */}
 
 
-      <div style={{marginTop: '20px'}}>
+      <div style={{ margin: '16px', }}>
         {/* First card layout */}
         <Row gutter={[16, 16]}>
           <Col span={6}>
@@ -119,12 +143,12 @@ const DashBoardPage: FC = () => {
           {/* Second card layout */}
           <Col span={6}>
             <div className="card-container">
-                <img src={mailOutcome} alt="Mail Outcome" className="card-icon" />
-                <div className="card-content">
-                  <h1 className="card-title">Yêu cầu đi</h1>
-                  <p className="card-value">0</p>
-                </div>
-                <div className="decorative-circles">
+              <img src={mailOutcome} alt="Mail Outcome" className="card-icon" />
+              <div className="card-content">
+                <h1 className="card-title">Yêu cầu đi</h1>
+                <p className="card-value">0</p>
+              </div>
+              <div className="decorative-circles">
                 <div className="circle" id='mailOutcome'></div>
                 <div className="circle-s" id='mailOutcome'></div>
               </div>
@@ -148,12 +172,12 @@ const DashBoardPage: FC = () => {
           {/* Fourth card layout */}
           <Col span={6}>
             <div className="card-container">
-                <img src={mailRelate} alt="Mail Relate" className="card-icon" />
-                <div className="card-content">
-                  <h1 className="card-title">Yêu cầu liên quan</h1>
-                  <p className="card-value">0</p>
-                </div>
-                <div className="decorative-circles">
+              <img src={mailRelate} alt="Mail Relate" className="card-icon" />
+              <div className="card-content">
+                <h1 className="card-title">Yêu cầu liên quan</h1>
+                <p className="card-value">0</p>
+              </div>
+              <div className="decorative-circles">
                 <div className="circle" id='mailRelate'></div>
                 <div className="circle-s" id='mailRelate'></div>
               </div>
@@ -164,83 +188,83 @@ const DashBoardPage: FC = () => {
 
 
       <div className="container">
-  <Row gutter={[16, 16]}>
-    {/* Card 1: Status and Priority */}
-    <Col span={5}>
-      <Card title="Lọc theo trạng thái">
-        <div className="status-container">
-          <h3>Chọn trạng thái:</h3>
-          <Radio.Group>
-            <Radio value="all">
-              <CheckCircleOutlined /> Tất cả
-            </Radio>
-            <Radio value="pending">
-              <ClockCircleOutlined /> Chờ duyệt
-            </Radio>
-            <Radio value="rejected">
-              <CloseCircleOutlined /> Từ chối duyệt
-            </Radio>
-            <Radio value="approved">
-              <CheckCircleOutlined /> Đã duyệt
-            </Radio>
-          </Radio.Group>
+        <Row gutter={[16, 16]}>
+          {/* Card 1: Status and Priority */}
+          <Col span={5}>
+            <Card title="Lọc theo trạng thái">
+              <div className="status-container">
+                <h3>Chọn trạng thái:</h3>
+                <Radio.Group>
+                  <Radio value="all">
+                    <CheckCircleOutlined /> Tất cả
+                  </Radio>
+                  <Radio value="pending">
+                    <ClockCircleOutlined /> Chờ duyệt
+                  </Radio>
+                  <Radio value="rejected">
+                    <CloseCircleOutlined /> Từ chối duyệt
+                  </Radio>
+                  <Radio value="approved">
+                    <CheckCircleOutlined /> Đã duyệt
+                  </Radio>
+                </Radio.Group>
 
-          <h3>Mức độ ưu tiên:</h3>
-          <Radio.Group>
-            <Radio value="low">
-              <span className="dot low"></span> Thấp
-            </Radio>
-            <Radio value="medium">
-              <span className="dot medium"></span> Trung bình
-            </Radio>
-            <Radio value="high">
-              <span className="dot high"></span> Khẩn cấp
-            </Radio>
-          </Radio.Group>
-        </div>
-      </Card>
-    </Col>
+                <h3>Mức độ ưu tiên:</h3>
+                <Radio.Group>
+                  <Radio value="low">
+                    <span className="dot low"></span> Thấp
+                  </Radio>
+                  <Radio value="medium">
+                    <span className="dot medium"></span> Trung bình
+                  </Radio>
+                  <Radio value="high">
+                    <span className="dot high"></span> Khẩn cấp
+                  </Radio>
+                </Radio.Group>
+              </div>
+            </Card>
+          </Col>
 
-    {/* Card 2: Search Form and Table */}
-    <Col span={19}>
-      <Card title="Tìm kiếm yêu cầu">
-        <Row gutter={[16, 16]} align="middle">
-          <Col span={8}>
-            <Select placeholder="Chọn loại yêu cầu">
-              <Option value="type1">Loại 1</Option>
-              <Option value="type2">Loại 2</Option>
-              <Option value="type3">Loại 3</Option>
-            </Select>
-          </Col>
-          <Col span={8}>
-            <DatePicker placeholder="Ngày bắt đầu" />
-          </Col>
-          <Col span={8}>
-            <DatePicker placeholder="Ngày kết thúc" />
+          {/* Card 2: Search Form and Table */}
+          <Col span={19}>
+            <Card title="Tìm kiếm yêu cầu">
+              <Row gutter={[16, 16]} align="middle">
+                <Col span={8}>
+                  <Select placeholder="Chọn loại yêu cầu">
+                    <Option value="type1">Loại 1</Option>
+                    <Option value="type2">Loại 2</Option>
+                    <Option value="type3">Loại 3</Option>
+                  </Select>
+                </Col>
+                <Col span={8}>
+                  <DatePicker placeholder="Ngày bắt đầu" />
+                </Col>
+                <Col span={8}>
+                  <DatePicker placeholder="Ngày kết thúc" />
+                </Col>
+              </Row>
+
+              <Row gutter={[16, 16]} style={{ marginTop: '16px' }}>
+                <Col span={12}>
+                  <Button type="primary" icon={<SearchOutlined />}>
+                    Tìm kiếm
+                  </Button>
+                </Col>
+                <Col span={12}>
+                  <Button icon={<ReloadOutlined />}>Làm mới</Button>
+                </Col>
+              </Row>
+
+              <Table
+                style={{ marginTop: '16px' }}
+                dataSource={dataSource}
+                columns={columns}
+                pagination={{ pageSize: 10 }}
+              />
+            </Card>
           </Col>
         </Row>
-
-        <Row gutter={[16, 16]} style={{ marginTop: '16px' }}>
-          <Col span={12}>
-            <Button type="primary" icon={<SearchOutlined />}>
-              Tìm kiếm
-            </Button>
-          </Col>
-          <Col span={12}>
-            <Button icon={<ReloadOutlined />}>Làm mới</Button>
-          </Col>
-        </Row>
-
-        <Table
-          style={{ marginTop: '16px' }}
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{ pageSize: 10 }}
-        />
-      </Card>
-    </Col>
-  </Row>
-</div>
+      </div>
 
 
       {/* <SalePercent loading={loading} /> */}
