@@ -7,7 +7,7 @@ export const enUS_globalTips = {
   'gloabal.tips.enterUsernameMessage': 'Vui lòng nhập tài khoản!',
   'gloabal.tips.password': 'Mật khẩu',
   'gloabal.tips.enterPasswordMessage': 'Vui lòng nhập mật khẩu!',
-  'gloabal.tips.rememberUser': 'Ghi nhớ người dùng',
+  'gloabal.tips.rememberUser': 'Ghi nhớ thông tin đăng nhập',
   'gloabal.tips.login': 'Đăng nhập',
   'gloabal.tips.backHome': 'Trở về Trang chủ',
   'gloabal.tips.operation': 'Operation',

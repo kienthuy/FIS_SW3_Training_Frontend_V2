@@ -10,6 +10,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { formatSearch } from '@/utils/formatSearch';
 
+import logoFisSvg from '@/assets/logo/logo-fis.svg';
+
 import { loginAsync } from '../../stores/user.action';
 
 const initialValues: LoginParams = {
@@ -37,11 +39,14 @@ const LoginForm: FC = () => {
   };
 
   return (
-    
     <div className="login-page">
-      <img className="logoLogin" src="https://cdn.fpt-is.com/vi/FPT-IS-set-logo-09-1715516289.svg" id="logo" style={{width: '12em', height: '12em'}}></img>
+      <div className="header-login">
+        <div className="decor-login"></div>
+        <div className="logo-login"></div>
+      </div>
+      <img className="logoLogin" src={logoFisSvg} id="logo" style={{width: '12em', height: '12em'}}></img>
       <Form<LoginParams> onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
-        <h2>Chào mừng bạn đến với hệ thống SW3.C360</h2>
+        <h2>Chào mừng Bạn đến với Digital Core</h2>
         <Form.Item
           name="code"
           rules={[
@@ -83,7 +88,7 @@ const LoginForm: FC = () => {
           </Checkbox>
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" type="primary" className="login-page-form_button theme-color ">
+          <Button htmlType="submit" type="default" className="login-page-form_button theme-color ">
             <LocaleFormatter id="gloabal.tips.login" />
           </Button>
         </Form.Item>
