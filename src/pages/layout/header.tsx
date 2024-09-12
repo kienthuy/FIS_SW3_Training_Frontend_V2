@@ -79,9 +79,9 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
           <img src={PortalIconSvg} alt="" style={{ width: '100%', height: '100%' }} />
         </div>
       )}
-     <div className="layout-page-header-main" style={{ background: 'linear-gradient(167.6deg, #cb0817 7.65%, #e0242c 71.52%, #ffd149 89.4%)' }}>
-        <div onClick={toggle}>
-          <span id="sidebar-trigger">{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
+     <div className="layout-page-header-main" style={{ background: 'linear-gradient(90deg, #F00016 0.2%, #EF0012 50.07%, #FFA000 75%, #FFBE00 84.97%, #FFCE00 99.93%)' }}>
+        <div>
+          hello
         </div>
         <div style={{ textAlign: 'center' }}>
           <div className="marquee-container">

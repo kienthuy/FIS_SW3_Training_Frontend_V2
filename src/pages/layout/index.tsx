@@ -3,6 +3,8 @@ import type { FC } from 'react';
 
 import './index.less';
 
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
+
 import { Drawer, Layout, theme as antTheme } from 'antd';
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -168,6 +170,10 @@ const LayoutPage: FC = () => {
               selectedKey={selectedKey}
               onChangeSelectedKey={k => setSelectedKey(k)}
             />
+            <h1></h1>
+            <div onClick={toggle}>
+              <span id="sidebar-trigger">{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
+            </div>
           </Sider>
         ) : (
           <Drawer
