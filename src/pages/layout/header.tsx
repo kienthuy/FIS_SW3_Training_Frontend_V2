@@ -16,6 +16,7 @@ import PortalIconSvg from '@/assets/header/portal-icon.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
+import logoFisLight from '@/assets/logo/logo-fis-light.svg';
 
 import { logoutAsync } from '../../stores/user.action';
 import HeaderNoticeComponent from './notice';
@@ -80,8 +81,11 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
         </div>
       )}
      <div className="layout-page-header-main" style={{ background: 'linear-gradient(90deg, #F00016 0.2%, #EF0012 50.07%, #FFA000 75%, #FFBE00 84.97%, #FFCE00 99.93%)' }}>
-        <div>
-          hello
+        
+        <img src={logoFisLight} alt="Mail Income"  style={{width: '70px', height: '60px'}} />
+        <div className="vertical-line"></div>
+        <div className="system-name-span">
+          DIGITAL CORE
         </div>
         <div style={{ textAlign: 'center' }}>
           <div className="marquee-container">

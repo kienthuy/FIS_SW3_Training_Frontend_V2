@@ -40,34 +40,34 @@ const ProductPage: FC = () => {
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Cập nhật phòng ban thành công');
+              message.success('Cập nhật sản phẩm thành công');
             } else if (errorCode === '2') {
-              message.error('Phòng ban đã tồn tại trong hệ thống');
+              message.error('Sản phẩm đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật phòng ban thất bại: ${errorDesc}` : 'Cập nhật phòng ban thất bại'
+                errorDesc ? `Cập nhật sản phẩm thất bại: ${errorDesc}` : 'Cập nhật sản phẩm thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật phòng ban');
+            message.error('Có lỗi xảy ra khi cập nhật sản phẩm');
           });
       } else {
         createProduct(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo phòng ban thành công');
+              message.success('Tạo sản phẩm thành công');
             } else if (errorCode === '2') {
-              message.error('Phong ban đã tồn tại trong hệ thống');
+              message.error('Sản phẩm đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo phòng ban thất bại: ${errorDesc}` : 'Tạo phòng ban thất bại'
+                errorDesc ? `Tạo sản phẩm thất bại: ${errorDesc}` : 'Tạo sản phẩm thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo phòng ban');
+            message.error('Có lỗi xảy ra khi tạo sản phẩm');
           });
       }
       handleCancel();
@@ -75,8 +75,8 @@ const ProductPage: FC = () => {
   };
   
   const tableColumns: MyPageTableOptions<Product> = [
-    { title: 'Mã phòng ban', dataIndex: 'code', key: 'code' },
-    { title: 'Tên phòng ban', dataIndex: 'name', key: 'name' },
+    { title: 'Mã sản phẩm', dataIndex: 'code', key: 'code' },
+    { title: 'Tên sản phẩm', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
     { title: 'Trạng thái', dataIndex: 'status', key: 'status' },
     {

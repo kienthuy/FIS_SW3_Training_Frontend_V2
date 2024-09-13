@@ -1,76 +1,76 @@
-import type { FC } from 'react';
-
-import './index.less';
-
-import { useEffect, useState } from 'react';
-
-import Overview from './overview';
-import SalePercent from './salePercent';
-import TimeLine from './timeLine';
-import { Card, Input, Button, Row, Col } from 'antd';
-import { SearchOutlined, SmileOutlined, BugTwoTone, MailOutlined, SendOutlined, EyeOutlined, LinkOutlined } from '@ant-design/icons';
-const { Title, Text } = Typography;
-import { Typography } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Card, Input, Button, Row, Col, Table, Radio, Select, DatePicker, Spin, Alert, Typography } from 'antd';
+import { SearchOutlined, SmileOutlined, BugTwoTone, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, ReloadOutlined } from '@ant-design/icons';
+import { searchBooking } from '@/api/booking';
 import mailIncome from '@/assets/icon/mailIncome.png';
 import mailOutcome from '@/assets/icon/mailOutcome.png';
 import mailFollow from '@/assets/icon/mailFollow.png';
 import mailRelate from '@/assets/icon/mailRelate.png';
 import bgSearch from '@/assets/bg/bg-search.png';
 
-import { Radio, Select, DatePicker, Table } from 'antd';
-import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, ReloadOutlined } from '@ant-design/icons';
-
-// Option component from Select
 const { Option } = Select;
+const { Title, Text } = Typography;
 
+const DashBoardPage = () => {
+  const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-const dataSource = [
-  {
-    key: '1',
-    name: 'Yêu cầu 1',
-    type: 'Loại 1',
-    date: '2023-09-01',
-  },
-  {
-    key: '2',
-    name: 'Yêu cầu 2',
-    type: 'Loại 2',
-    date: '2023-09-02',
-  },
-];
-
-// Columns for the table
-const columns = [
-  {
-    title: 'Tên yêu cầu',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Loại',
-    dataIndex: 'type',
-    key: 'type',
-  },
-  {
-    title: 'Ngày tạo',
-    dataIndex: 'date',
-    key: 'date',
-  },
-];
-
-const DashBoardPage: FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  // mock timer to mimic dashboard data loading
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(undefined as any);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await searchBooking({ /* your params here if any */ });
+        if (response.status) {
+          const transformedData:any = response.result.data.map(item => ({
+            key: item.id, // Unique key
+            id: item.id,
+            product: item.product || 'N/A', // Default value if null
+            name: item.name,
+            status: item.status || 'N/A', // Default value if null
+            createdDate: new Date(item.createdDate).toLocaleDateString(), // Format date
+          }));
+          setDataSource(transformedData);
+        } else {
+          // setError("Failed to fetch data");
+        }
+      } catch (err) {
+        // setError('An error occurred');
+      } finally {
+        setLoading(false);
+      }
     };
+
+    fetchData();
   }, []);
+
+  const columns = [
+    {
+      title: 'Mã yêu cầu',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Loại dịch vụ',
+      dataIndex: 'product',
+      key: 'product',
+    },
+    {
+      title: 'Tên khách hàng',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'createdDate',
+      key: 'createdDate',
+    },
+  ];
 
   return (
     <div>
@@ -81,8 +81,8 @@ const DashBoardPage: FC = () => {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
-          border: '1px solid #ccc', // Light gray border
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow
+          border: '1px solid #ccc',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
           margin: '16px',
         }}
       >
@@ -92,11 +92,11 @@ const DashBoardPage: FC = () => {
           gutter={[16, 16]}
           align="middle"
           style={{
-            backgroundColor: '#fff',  // Background color for the Row
-            padding: '20px',          // Padding inside the Row
-            borderRadius: '10px',     // Rounded corners
-            border: '1px solid #ccc', // Light gray border
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow
+            backgroundColor: '#fff',
+            padding: '20px',
+            borderRadius: '10px',
+            border: '1px solid #ccc',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
           <Col span={7}>
@@ -121,17 +121,14 @@ const DashBoardPage: FC = () => {
           </Col>
         </Row>
       </Card>
-      {/* <Overview loading={loading} /> */}
 
-
-      <div style={{ margin: '16px', }}>
-        {/* First card layout */}
+      <div style={{ margin: '16px' }}>
         <Row gutter={[16, 16]}>
           <Col span={6}>
             <div className="card-container">
               <img src={mailIncome} alt="Mail Income" className="card-icon" />
               <div className="card-content">
-                <h1 className="card-title">Yêu liên quan</h1>
+                <h1 className="card-title">Yêu cầu liên quan</h1>
                 <p className="card-value">0</p>
               </div>
               <div className="decorative-circles">
@@ -140,7 +137,6 @@ const DashBoardPage: FC = () => {
               </div>
             </div>
           </Col>
-          {/* Second card layout */}
           <Col span={6}>
             <div className="card-container">
               <img src={mailOutcome} alt="Mail Outcome" className="card-icon" />
@@ -154,7 +150,6 @@ const DashBoardPage: FC = () => {
               </div>
             </div>
           </Col>
-          {/* Third card layout */}
           <Col span={6}>
             <div className="card-container">
               <img src={mailFollow} alt="Mail Follow" className="card-icon" />
@@ -167,9 +162,7 @@ const DashBoardPage: FC = () => {
                 <div className="circle-s" id='mailFollow'></div>
               </div>
             </div>
-
           </Col>
-          {/* Fourth card layout */}
           <Col span={6}>
             <div className="card-container">
               <img src={mailRelate} alt="Mail Relate" className="card-icon" />
@@ -186,10 +179,8 @@ const DashBoardPage: FC = () => {
         </Row>
       </div>
 
-
       <div className="container">
         <Row gutter={[16, 16]}>
-          {/* Card 1: Status and Priority */}
           <Col span={5}>
             <Card title="Lọc theo trạng thái">
               <div className="status-container">
@@ -225,7 +216,6 @@ const DashBoardPage: FC = () => {
             </Card>
           </Col>
 
-          {/* Card 2: Search Form and Table */}
           <Col span={19}>
             <Card title="Tìm kiếm yêu cầu">
               <Row gutter={[16, 16]} align="middle">
@@ -255,20 +245,22 @@ const DashBoardPage: FC = () => {
                 </Col>
               </Row>
 
-              <Table
-                style={{ marginTop: '16px' }}
-                dataSource={dataSource}
-                columns={columns}
-                pagination={{ pageSize: 10 }}
-              />
+              {loading ? (
+                <Spin />
+              ) : error ? (
+                <Alert message={error} type="error" />
+              ) : (
+                <Table
+                  style={{ marginTop: '16px' }}
+                  dataSource={dataSource}
+                  columns={columns}
+                  pagination={{ pageSize: 10 }}
+                />
+              )}
             </Card>
           </Col>
         </Row>
       </div>
-
-
-      {/* <SalePercent loading={loading} /> */}
-      {/* <TimeLine loading={loading} /> */}
     </div>
   );
 };

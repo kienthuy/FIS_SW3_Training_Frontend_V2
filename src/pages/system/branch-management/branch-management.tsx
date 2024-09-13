@@ -39,34 +39,34 @@ const BranchPage: FC = () => {
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Cập nhật phòng ban thành công');
+              message.success('Cập nhật chi nhánh thành công');
             } else if (errorCode === '2') {
-              message.error('Phòng ban đã tồn tại trong hệ thống');
+              message.error('Chi nhánh đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Cập nhật phòng ban thất bại: ${errorDesc}` : 'Cập nhật phòng ban thất bại'
+                errorDesc ? `Cập nhật chi nhánh thất bại: ${errorDesc}` : 'Cập nhật chi nhánh thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi cập nhật phòng ban');
+            message.error('Có lỗi xảy ra khi cập nhật chi nhánh');
           });
       } else {
         createBranch(values)
           .then((response: any) => {
             const { errorCode, errorDesc } = response;
             if (errorCode === '0') {
-              message.success('Tạo phòng ban thành công');
+              message.success('Tạo chi nhánh thành công');
             } else if (errorCode === '2') {
-              message.error('Phong ban đã tồn tại trong hệ thống');
+              message.error('Chi nhánh đã tồn tại trong hệ thống');
             } else {
               message.error(
-                errorDesc ? `Tạo phòng ban thất bại: ${errorDesc}` : 'Tạo phòng ban thất bại'
+                errorDesc ? `Tạo chi nhánh thất bại: ${errorDesc}` : 'Tạo chi nhánh thất bại'
               );
             }
           })
           .catch(() => {
-            message.error('Có lỗi xảy ra khi tạo phòng ban');
+            message.error('Có lỗi xảy ra khi tạo chi nhánh');
           });
       }
       handleCancel();
@@ -74,8 +74,8 @@ const BranchPage: FC = () => {
   };
   
   const tableColumns: MyPageTableOptions<Branch> = [
-    { title: 'Mã phòng ban', dataIndex: 'code', key: 'code' },
-    { title: 'Tên phòng ban', dataIndex: 'name', key: 'name' },
+    { title: 'Mã chi nhánh', dataIndex: 'code', key: 'code' },
+    { title: 'Tên chi nhánh', dataIndex: 'name', key: 'name' },
     { title: 'Tên (Tiếng anh)', dataIndex: 'nameEn', key: 'nameEn' },
     { title: 'Mã số thuế', dataIndex: 'fax', key: 'fax' },
     { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },

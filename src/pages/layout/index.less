@@ -310,3 +310,30 @@ body[theme-mode='dark'] {
 .ant-radio-wrapper {
   margin-bottom: 8px;
 }
+
+/* Make sure this CSS is loaded correctly in your project */
+
+.sidebar-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff; /* Background color */
+  border-top: 1px solid #ddd; /* Light border for top */
+  padding: 8px 16px; /* Padding for spacing */
+  position:absolute;
+  bottom: 0; /* Positions the element at the bottom */
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensures it appears above other content */
+}
+
+#sidebar-trigger-icon {
+  font-size: 16px; /* Icon size */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.sidebar-trigger span {
+  margin-left: 8px; /* Space between icon and text */
+}
+

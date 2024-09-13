@@ -1,0 +1,1 @@
+export type StatusBooking = 'DRAFT' | 'SUBMITTED' | 'REVIEWED'| 'APPROVED'| 'SUCCESS' | 'FAILED' ;

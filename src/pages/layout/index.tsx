@@ -23,6 +23,27 @@ import TagsView from './tagView';
 const { Sider, Content } = Layout;
 const WIDTH = 992;
 
+const containerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  backgroundColor: '#fff', // Background color
+  borderTop: '1px solid #ddd', // Light border for top
+  padding: '8px 16px', // Padding for spacing
+  position: 'fixed', // Fixes the element at the bottom
+  bottom: 0, // Positions the element at the bottom
+  left: 0,
+  right: 0,
+  boxShadow: '0 -1px 5px rgba(0, 0, 0, 0.1)', // Optional shadow for better separation
+  zIndex: 1000, // Ensures it appears above other content
+};
+
+const iconStyle = {
+  fontSize: '16px', // Icon size
+  marginRight: '8px', // Space between icon and text
+};
+
 const LayoutPage: FC = () => {
   const location = useLocation();
   const [openKey, setOpenkey] = useState<string>();
@@ -170,10 +191,12 @@ const LayoutPage: FC = () => {
               selectedKey={selectedKey}
               onChangeSelectedKey={k => setSelectedKey(k)}
             />
-            <h1></h1>
-            <div onClick={toggle}>
-              <span id="sidebar-trigger">{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
-            </div>
+           <div onClick={toggle} className="sidebar-trigger">
+            <span id="sidebar-trigger-icon">
+              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            </span>
+            <span>Tất cả chức năng</span>
+          </div>
           </Sider>
         ) : (
           <Drawer
